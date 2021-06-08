@@ -1,12 +1,13 @@
 import pytest
 from selenium import webdriver
 from pageObjects.loginPage import LoginPage
-
+from utilites.readProperties import Readconfiq
+from utilites.logger import LogGen
 
 class Test_001_Login:
-    baseUrl="https://admin-demo.nopcommerce.com/"
-    userName="admin@yourstore.com"
-    password="admin"
+    baseUrl = Readconfiq.getUrl()
+    userName = Readconfiq.getUseremail()
+    password = Readconfiq.getPassword()
 
     def test_homePage_title(self,setup):
         self.driver=setup
@@ -17,6 +18,7 @@ class Test_001_Login:
         if actual_title=="Your store. Login":
             assert  True
         else:
+            self.driver.save_screenshot(".\\screenshots\\"+"test_homePageTitle.png")
             assert False
 
     def test_Login(self,setup):
